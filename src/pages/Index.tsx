@@ -1,12 +1,139 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import React from 'react';
+import DashboardHeader from '../components/DashboardHeader';
+import DashboardNav from '../components/DashboardNav';
+import StatsCard from '../components/StatsCard';
+import RecentFilesCard from '../components/RecentFilesCard';
+import ClientAccessCard from '../components/ClientAccessCard';
+import ReportCalendarCard from '../components/ReportCalendarCard';
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-gray-50">
+      <DashboardHeader />
+      <DashboardNav />
+      
+      <main className="p-6 space-y-6">
+        {/* Hero Stats Section */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <StatsCard
+            title="Total Files Processed"
+            value="156"
+            subtitle="This month"
+            trend={{ value: "+12%", isPositive: true }}
+            gradient={true}
+            icon={
+              <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clipRule="evenodd" />
+              </svg>
+            }
+          />
+          
+          <StatsCard
+            title="Active Clients"
+            value="24"
+            subtitle="Currently active"
+            trend={{ value: "+2", isPositive: true }}
+            icon={
+              <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
+              </svg>
+            }
+          />
+          
+          <StatsCard
+            title="Pending Reports"
+            value="8"
+            subtitle="Due this week"
+            trend={{ value: "-3", isPositive: true }}
+            icon={
+              <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
+              </svg>
+            }
+          />
+          
+          <StatsCard
+            title="System Health"
+            value="99.2%"
+            subtitle="Uptime"
+            trend={{ value: "+0.1%", isPositive: true }}
+            icon={
+              <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+              </svg>
+            }
+          />
+        </div>
+
+        {/* Main Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Recent Files - Takes 2 columns */}
+          <div className="lg:col-span-2">
+            <RecentFilesCard />
+          </div>
+          
+          {/* Report Calendar - Takes 1 column */}
+          <div className="lg:col-span-1">
+            <ReportCalendarCard />
+          </div>
+        </div>
+
+        {/* Client Access Overview - Full width */}
+        <div className="w-full">
+          <ClientAccessCard />
+        </div>
+
+        {/* Quick Actions Section */}
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <button className="flex items-center space-x-3 p-4 rounded-lg border border-gray-200 hover:border-primary hover:bg-primary-50 transition-all duration-200">
+              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+                <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <div className="text-left">
+                <p className="font-medium text-gray-900">Upload New File</p>
+                <p className="text-sm text-gray-600">Import data entries</p>
+              </div>
+            </button>
+            
+            <button className="flex items-center space-x-3 p-4 rounded-lg border border-gray-200 hover:border-primary hover:bg-primary-50 transition-all duration-200">
+              <div className="w-10 h-10 bg-health-success rounded-lg flex items-center justify-center">
+                <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <div className="text-left">
+                <p className="font-medium text-gray-900">Generate Report</p>
+                <p className="text-sm text-gray-600">Create new report</p>
+              </div>
+            </button>
+            
+            <button className="flex items-center space-x-3 p-4 rounded-lg border border-gray-200 hover:border-primary hover:bg-primary-50 transition-all duration-200">
+              <div className="w-10 h-10 bg-health-warning rounded-lg flex items-center justify-center">
+                <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <div className="text-left">
+                <p className="font-medium text-gray-900">Search Records</p>
+                <p className="text-sm text-gray-600">Find specific data</p>
+              </div>
+            </button>
+          </div>
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-white border-t border-gray-200 px-6 py-4 mt-8">
+        <div className="flex items-center justify-between text-sm text-gray-600">
+          <p>G & M Health, LLC © 2025.</p>
+          <p>Development</p>
+        </div>
+      </footer>
     </div>
   );
 };
