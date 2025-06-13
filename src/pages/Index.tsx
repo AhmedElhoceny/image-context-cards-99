@@ -2,7 +2,6 @@
 import React from 'react';
 import DashboardHeader from '../components/DashboardHeader';
 import DashboardNav from '../components/DashboardNav';
-import StatsCard from '../components/StatsCard';
 import RecentFilesCard from '../components/RecentFilesCard';
 import ClientAccessCard from '../components/ClientAccessCard';
 import ReportCalendarCard from '../components/ReportCalendarCard';
@@ -14,77 +13,7 @@ const Index = () => {
       <DashboardNav />
       
       <main className="p-6 space-y-6">
-        {/* Hero Stats Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <StatsCard
-            title="Total Files Processed"
-            value="156"
-            subtitle="This month"
-            trend={{ value: "+12%", isPositive: true }}
-            gradient={true}
-            icon={
-              <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clipRule="evenodd" />
-              </svg>
-            }
-          />
-          
-          <StatsCard
-            title="Active Clients"
-            value="24"
-            subtitle="Currently active"
-            trend={{ value: "+2", isPositive: true }}
-            icon={
-              <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
-              </svg>
-            }
-          />
-          
-          <StatsCard
-            title="Pending Reports"
-            value="8"
-            subtitle="Due this week"
-            trend={{ value: "-3", isPositive: true }}
-            icon={
-              <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
-              </svg>
-            }
-          />
-          
-          <StatsCard
-            title="System Health"
-            value="99.2%"
-            subtitle="Uptime"
-            trend={{ value: "+0.1%", isPositive: true }}
-            icon={
-              <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-              </svg>
-            }
-          />
-        </div>
-
-        {/* Main Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Recent Files - Takes 2 columns */}
-          <div className="lg:col-span-2">
-            <RecentFilesCard />
-          </div>
-          
-          {/* Report Calendar - Takes 1 column */}
-          <div className="lg:col-span-1">
-            <ReportCalendarCard />
-          </div>
-        </div>
-
-        {/* Client Access Overview - Full width */}
-        <div className="w-full">
-          <ClientAccessCard />
-        </div>
-
-        {/* Quick Actions Section */}
+        {/* Quick Actions Section - Moved to top */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -124,6 +53,24 @@ const Index = () => {
               </div>
             </button>
           </div>
+        </div>
+
+        {/* Main Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Recent Files - Takes 2 columns */}
+          <div className="lg:col-span-2">
+            <RecentFilesCard />
+          </div>
+          
+          {/* Report Calendar - Takes 1 column */}
+          <div className="lg:col-span-1">
+            <ReportCalendarCard />
+          </div>
+        </div>
+
+        {/* Client Access Overview - Full width */}
+        <div className="w-full">
+          <ClientAccessCard />
         </div>
       </main>
 
