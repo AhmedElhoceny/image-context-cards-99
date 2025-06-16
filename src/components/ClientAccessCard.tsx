@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 
 const ClientAccessCard = () => {
   const accessData = {
@@ -35,6 +36,31 @@ const ClientAccessCard = () => {
     }
   };
 
+  // Prepare chart data
+  const chartData = Object.entries(accessData).map(([name, data]) => ({
+    name,
+    production: data.production,
+    ruleValidation: data.ruleValidation,
+    manualMatch: data.manualMatch,
+    total: data.noOfRecords
+  }));
+
+  const CustomTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="bg-white p-3 border border-gray-200 rounded-lg shadow-lg">
+          <p className="font-medium text-gray-900 mb-2">{label}</p>
+          {payload.map((entry: any, index: number) => (
+            <p key={index} className="text-sm" style={{ color: entry.color }}>
+              {entry.name}: {entry.value}
+            </p>
+          ))}
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 animate-fade-in">
       <div className="flex items-center justify-between mb-4">
@@ -46,6 +72,57 @@ const ClientAccessCard = () => {
           <select className="text-sm border border-gray-300 rounded-md px-3 py-1 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
             <option>2025</option>
           </select>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+        {/* Chart Section */}
+        <div className="lg:col-span-2">
+          <div className="bg-gray-50 rounded-lg p-4">
+            <h4 className="font-medium text-gray-900 mb-3">Records Status by Client</h4>
+            <div className="h-64">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                  <XAxis 
+                    dataKey="name" 
+                    tick={{ fontSize: 12 }}
+                    angle={-45}
+                    textAnchor="end"
+                    height={60}
+                  />
+                  <YAxis tick={{ fontSize: 12 }} />
+                  <Tooltip content={<CustomTooltip />} />
+                  <Legend />
+                  <Bar dataKey="production" fill="#10B981" name="Production" radius={[2, 2, 0, 0]} />
+                  <Bar dataKey="ruleValidation" fill="#F59E0B" name="Rule Validation" radius={[2, 2, 0, 0]} />
+                  <Bar dataKey="manualMatch" fill="#6B7280" name="Manual Match" radius={[2, 2, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+        </div>
+
+        {/* Summary Stats */}
+        <div className="space-y-4">
+          <div className="bg-gradient-to-r from-primary to-primary-600 rounded-lg p-4 text-white">
+            <h4 className="font-semibold text-sm mb-2">Total Records</h4>
+            <p className="text-2xl font-bold">
+              {Object.values(accessData).reduce((sum, data) => sum + data.noOfRecords, 0)}
+            </p>
+          </div>
+          <div className="bg-gradient-to-r from-health-success to-green-600 rounded-lg p-4 text-white">
+            <h4 className="font-semibold text-sm mb-2">Production</h4>
+            <p className="text-2xl font-bold">
+              {Object.values(accessData).reduce((sum, data) => sum + data.production, 0)}
+            </p>
+          </div>
+          <div className="bg-gradient-to-r from-health-warning to-yellow-600 rounded-lg p-4 text-white">
+            <h4 className="font-semibold text-sm mb-2">Pending</h4>
+            <p className="text-2xl font-bold">
+              {Object.values(accessData).reduce((sum, data) => sum + data.ruleValidation + data.manualMatch, 0)}
+            </p>
+          </div>
         </div>
       </div>
 

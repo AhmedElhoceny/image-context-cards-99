@@ -55,6 +55,11 @@ const Index = () => {
           </div>
         </div>
 
+        {/* Client Access Overview - Moved up */}
+        <div className="w-full">
+          <ClientAccessCard />
+        </div>
+
         {/* Main Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Recent Files - Takes 2 columns */}
@@ -66,11 +71,6 @@ const Index = () => {
           <div className="lg:col-span-1">
             <ReportCalendarCard />
           </div>
-        </div>
-
-        {/* Client Access Overview - Full width */}
-        <div className="w-full">
-          <ClientAccessCard />
         </div>
       </main>
 
