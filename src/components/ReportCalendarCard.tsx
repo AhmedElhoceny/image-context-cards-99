@@ -56,6 +56,17 @@ const ReportCalendarCard = () => {
     }
   ];
 
+  // Convert report dates to Date objects for calendar highlighting
+  const reportDates = upcomingReports.map(report => {
+    // Parse the date string (assuming current year 2025)
+    const [month, day] = report.date.split(' ');
+    const monthMap: { [key: string]: number } = {
+      'January': 0, 'February': 1, 'March': 2, 'April': 3, 'May': 4, 'June': 5,
+      'July': 6, 'August': 7, 'September': 8, 'October': 9, 'November': 10, 'December': 11
+    };
+    return new Date(2025, monthMap[month], parseInt(day));
+  });
+
   const getPriorityColor = (priority: string) => {
     switch (priority) {
       case 'high': return 'bg-health-danger';
@@ -90,6 +101,19 @@ const ReportCalendarCard = () => {
     low: upcomingReports.filter(r => r.priority === 'low')
   };
 
+  // Custom modifiers for calendar dates
+  const modifiers = {
+    reportDue: reportDates
+  };
+
+  const modifiersStyles = {
+    reportDue: {
+      backgroundColor: '#EF4444',
+      color: 'white',
+      fontWeight: 'bold'
+    }
+  };
+
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 animate-fade-in">
       <div className="flex items-center justify-between mb-6">
@@ -111,18 +135,7 @@ const ReportCalendarCard = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Calendar Widget */}
-        <div className="lg:col-span-1">
-          <div className="bg-gray-50 rounded-lg p-4">
-            <h4 className="font-medium text-gray-900 mb-3 text-center">Current Month</h4>
-            <Calendar
-              mode="single"
-              className="rounded-md border-0"
-            />
-          </div>
-        </div>
-
-        {/* Reports Timeline */}
+        {/* Reports Timeline - Now on the left (2/3 width) */}
         <div className="lg:col-span-2">
           <h4 className="font-medium text-gray-900 mb-4">Upcoming Reports Timeline</h4>
           
@@ -214,6 +227,25 @@ const ReportCalendarCard = () => {
                 </div>
               </div>
             )}
+          </div>
+        </div>
+
+        {/* Calendar Widget - Now on the right (1/3 width) */}
+        <div className="lg:col-span-1">
+          <div className="bg-gray-50 rounded-lg p-4">
+            <h4 className="font-medium text-gray-900 mb-3 text-center">Current Month</h4>
+            <Calendar
+              mode="single"
+              className="rounded-md border-0"
+              modifiers={modifiers}
+              modifiersStyles={modifiersStyles}
+            />
+            <div className="mt-3 text-xs text-gray-600 text-center">
+              <div className="flex items-center justify-center space-x-2">
+                <div className="w-3 h-3 bg-health-danger rounded-full"></div>
+                <span>Report Due Dates</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
