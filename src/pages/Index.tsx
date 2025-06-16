@@ -13,53 +13,44 @@ const Index = () => {
       <DashboardNav />
       
       <main className="p-6 space-y-6">
-        {/* Quick Actions Section - Split into 2 sections */}
+        {/* Quick Actions Section */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-            {/* First Section - 60% width (3 columns) */}
-            <div className="lg:col-span-3">
-              {/* Action Buttons */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                <button className="flex items-center space-x-3 p-4 rounded-lg border border-gray-200 hover:border-primary hover:bg-primary-50 transition-all duration-200">
-                  <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                  <div className="text-left">
-                    <p className="font-medium text-gray-900">Upload New File</p>
-                    <p className="text-sm text-gray-600">Import data entries</p>
-                  </div>
-                </button>
-                
-                <button className="flex items-center space-x-3 p-4 rounded-lg border border-gray-200 hover:border-primary hover:bg-primary-50 transition-all duration-200">
-                  <div className="w-10 h-10 bg-health-warning rounded-lg flex items-center justify-center">
-                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                  <div className="text-left">
-                    <p className="font-medium text-gray-900">Search Records</p>
-                    <p className="text-sm text-gray-600">Find specific data</p>
-                  </div>
-                </button>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <button className="flex items-center space-x-3 p-4 rounded-lg border border-gray-200 hover:border-primary hover:bg-primary-50 transition-all duration-200">
+              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+                <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                </svg>
               </div>
-              
-              {/* Report Calendar under the buttons */}
-              <ReportCalendarCard />
-            </div>
-
-            {/* Second Section - 40% width (2 columns) */}
-            <div className="lg:col-span-2">
-              <RecentFilesCard />
-            </div>
+              <div className="text-left">
+                <p className="font-medium text-gray-900">Upload New File</p>
+                <p className="text-sm text-gray-600">Import data entries</p>
+              </div>
+            </button>
+            
+            <button className="flex items-center space-x-3 p-4 rounded-lg border border-gray-200 hover:border-primary hover:bg-primary-50 transition-all duration-200">
+              <div className="w-10 h-10 bg-health-warning rounded-lg flex items-center justify-center">
+                <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <div className="text-left">
+                <p className="font-medium text-gray-900">Search Records</p>
+                <p className="text-sm text-gray-600">Find specific data</p>
+              </div>
+            </button>
           </div>
         </div>
 
-        {/* Client Access Overview */}
+        {/* Client Access Overview - Moved to top */}
         <div className="w-full">
           <ClientAccessCard />
+        </div>
+
+        {/* Report Calendar - Moved to bottom as separate card */}
+        <div className="w-full">
+          <ReportCalendarCard />
         </div>
       </main>
 

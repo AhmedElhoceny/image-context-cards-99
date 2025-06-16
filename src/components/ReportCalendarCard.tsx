@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Calendar } from './ui/calendar';
 
 interface ReportEntry {
   title: string;
@@ -73,35 +74,148 @@ const ReportCalendarCard = () => {
     }
   };
 
+  const getPriorityBgColor = (priority: string) => {
+    switch (priority) {
+      case 'high': return 'bg-red-50';
+      case 'medium': return 'bg-yellow-50';
+      case 'low': return 'bg-green-50';
+      default: return 'bg-gray-50';
+    }
+  };
+
+  // Group reports by priority for visual layout
+  const reportsByPriority = {
+    high: upcomingReports.filter(r => r.priority === 'high'),
+    medium: upcomingReports.filter(r => r.priority === 'medium'),
+    low: upcomingReports.filter(r => r.priority === 'low')
+  };
+
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 animate-fade-in">
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-lg font-semibold text-gray-900">Report Calendar</h3>
-        <button className="text-primary text-sm font-medium hover:text-primary-600 transition-colors">
-          Show more
-        </button>
+        <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 text-sm">
+            <div className="w-3 h-3 bg-health-danger rounded-full"></div>
+            <span className="text-gray-600">Urgent</span>
+          </div>
+          <div className="flex items-center space-x-2 text-sm">
+            <div className="w-3 h-3 bg-health-warning rounded-full"></div>
+            <span className="text-gray-600">Medium</span>
+          </div>
+          <div className="flex items-center space-x-2 text-sm">
+            <div className="w-3 h-3 bg-health-success rounded-full"></div>
+            <span className="text-gray-600">Low</span>
+          </div>
+        </div>
       </div>
 
-      <div className="space-y-4">
-        {upcomingReports.map((report, index) => (
-          <div key={index} className="flex items-center justify-between p-4 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors">
-            <div className="flex items-center space-x-4">
-              <div className={`w-1 h-12 rounded-full ${getPriorityColor(report.priority)}`} />
-              <div>
-                <h4 className="font-medium text-gray-900">{report.title}</h4>
-                <p className="text-sm text-gray-600">{report.date}</p>
-              </div>
-            </div>
-            <div className="text-right">
-              <p className={`text-lg font-bold ${getPriorityTextColor(report.priority)}`}>
-                {report.daysLeft} Days Left
-              </p>
-              <p className="text-xs text-gray-500 mt-1">
-                Due: {report.date}
-              </p>
-            </div>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Calendar Widget */}
+        <div className="lg:col-span-1">
+          <div className="bg-gray-50 rounded-lg p-4">
+            <h4 className="font-medium text-gray-900 mb-3 text-center">Current Month</h4>
+            <Calendar
+              mode="single"
+              className="rounded-md border-0"
+            />
           </div>
-        ))}
+        </div>
+
+        {/* Reports Timeline */}
+        <div className="lg:col-span-2">
+          <h4 className="font-medium text-gray-900 mb-4">Upcoming Reports Timeline</h4>
+          
+          {/* Priority Sections */}
+          <div className="space-y-4">
+            {/* High Priority */}
+            {reportsByPriority.high.length > 0 && (
+              <div className="bg-red-50 rounded-lg p-4 border-l-4 border-health-danger">
+                <h5 className="font-semibold text-health-danger mb-3 flex items-center">
+                  <div className="w-2 h-2 bg-health-danger rounded-full mr-2"></div>
+                  Urgent Reports
+                </h5>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {reportsByPriority.high.map((report, index) => (
+                    <div key={index} className="bg-white rounded-md p-3 shadow-sm">
+                      <h6 className="font-medium text-gray-900 text-sm">{report.title}</h6>
+                      <p className="text-xs text-gray-600 mt-1">{report.date}</p>
+                      <div className="mt-2 flex items-center justify-between">
+                        <span className="text-xs font-bold text-health-danger">
+                          {report.daysLeft} days left
+                        </span>
+                        <div className="w-16 bg-gray-200 rounded-full h-1">
+                          <div 
+                            className="bg-health-danger h-1 rounded-full transition-all duration-300"
+                            style={{ width: `${Math.max(10, 100 - (report.daysLeft / 30 * 100))}%` }}
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Medium Priority */}
+            {reportsByPriority.medium.length > 0 && (
+              <div className="bg-yellow-50 rounded-lg p-4 border-l-4 border-health-warning">
+                <h5 className="font-semibold text-health-warning mb-3 flex items-center">
+                  <div className="w-2 h-2 bg-health-warning rounded-full mr-2"></div>
+                  Medium Priority
+                </h5>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {reportsByPriority.medium.map((report, index) => (
+                    <div key={index} className="bg-white rounded-md p-3 shadow-sm">
+                      <h6 className="font-medium text-gray-900 text-sm">{report.title}</h6>
+                      <p className="text-xs text-gray-600 mt-1">{report.date}</p>
+                      <div className="mt-2 flex items-center justify-between">
+                        <span className="text-xs font-bold text-health-warning">
+                          {report.daysLeft} days left
+                        </span>
+                        <div className="w-16 bg-gray-200 rounded-full h-1">
+                          <div 
+                            className="bg-health-warning h-1 rounded-full transition-all duration-300"
+                            style={{ width: `${Math.max(10, 100 - (report.daysLeft / 180 * 100))}%` }}
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Low Priority */}
+            {reportsByPriority.low.length > 0 && (
+              <div className="bg-green-50 rounded-lg p-4 border-l-4 border-health-success">
+                <h5 className="font-semibold text-health-success mb-3 flex items-center">
+                  <div className="w-2 h-2 bg-health-success rounded-full mr-2"></div>
+                  Low Priority
+                </h5>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {reportsByPriority.low.map((report, index) => (
+                    <div key={index} className="bg-white rounded-md p-3 shadow-sm">
+                      <h6 className="font-medium text-gray-900 text-sm">{report.title}</h6>
+                      <p className="text-xs text-gray-600 mt-1">{report.date}</p>
+                      <div className="mt-2 flex items-center justify-between">
+                        <span className="text-xs font-bold text-health-success">
+                          {report.daysLeft} days left
+                        </span>
+                        <div className="w-16 bg-gray-200 rounded-full h-1">
+                          <div 
+                            className="bg-health-success h-1 rounded-full transition-all duration-300"
+                            style={{ width: `${Math.max(10, 100 - (report.daysLeft / 365 * 100))}%` }}
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
