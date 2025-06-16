@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import RecentFilesCard from './RecentFilesCard';
@@ -104,10 +105,10 @@ const ClientAccessCard = () => {
         </div>
       </div>
 
-      {/* Main content grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-        {/* Left side - Chart and Cards (reduced from 3 to 2.5 columns equivalent) */}
-        <div className="lg:col-span-2 space-y-6">
+      {/* Main content flex layout with percentage widths */}
+      <div className="flex gap-6">
+        {/* Left side - Chart and Cards (60% width) */}
+        <div className="w-[60%] space-y-6">
           {/* Chart Section */}
           <div className="bg-gray-50 rounded-lg p-4">
             <h4 className="font-medium text-gray-900 mb-3">Records Status by Client</h4>
@@ -133,8 +134,8 @@ const ClientAccessCard = () => {
             </div>
           </div>
 
-          {/* Client Cards - adjusted for smaller width */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* Client Cards - 3 per row for wider space */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {Object.entries(accessData).map(([clientName, data]) => (
               <div key={clientName} className="bg-gradient-to-br from-gray-50 to-white rounded-lg border border-gray-200 p-4 hover:shadow-md transition-all duration-200">
                 <div className="border-l-4 border-primary pl-3 mb-3">
@@ -183,8 +184,8 @@ const ClientAccessCard = () => {
           </div>
         </div>
 
-        {/* Right side - Rep Activities (expanded to 3 columns) */}
-        <div className="lg:col-span-3">
+        {/* Right side - Rep Activities (40% width) */}
+        <div className="w-[40%]">
           <RecentFilesCard />
         </div>
       </div>
