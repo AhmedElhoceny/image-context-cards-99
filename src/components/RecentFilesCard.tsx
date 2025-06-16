@@ -61,7 +61,7 @@ const RecentFilesCard = () => {
   };
 
   return (
-    <div className="bg-gray-50 rounded-lg p-4 h-full">
+    <div className="bg-gray-50 rounded-lg p-4 h-full flex flex-col">
       <div className="flex items-center justify-between mb-4">
         <h4 className="font-medium text-gray-900">Rep Activities</h4>
         <button className="text-primary text-xs font-medium hover:text-primary-600 transition-colors">
@@ -69,8 +69,8 @@ const RecentFilesCard = () => {
         </button>
       </div>
       
-      {/* Compact Rep List */}
-      <div className="space-y-2 max-h-64 overflow-y-auto">
+      {/* Compact Rep List - Now takes remaining height */}
+      <div className="space-y-2 flex-1 overflow-y-auto">
         {repActivities.map((rep, index) => (
           <div 
             key={index} 
