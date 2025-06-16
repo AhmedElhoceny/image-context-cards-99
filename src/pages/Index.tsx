@@ -13,10 +13,15 @@ const Index = () => {
       <DashboardNav />
       
       <main className="p-6 space-y-6">
-        {/* Quick Actions Section - Updated with Rep Activities */}
+        {/* Client Access Overview */}
+        <div className="w-full">
+          <ClientAccessCard />
+        </div>
+
+        {/* Quick Actions Section - Updated with Rep Activities and Report Calendar */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <button className="flex items-center space-x-3 p-4 rounded-lg border border-gray-200 hover:border-primary hover:bg-primary-50 transition-all duration-200">
               <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
                 <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -41,21 +46,16 @@ const Index = () => {
               </div>
             </button>
 
-            {/* Rep Activities Card moved here */}
+            {/* Rep Activities Card */}
             <div className="col-span-1">
               <RecentFilesCard />
             </div>
+
+            {/* Report Calendar Card */}
+            <div className="col-span-1">
+              <ReportCalendarCard />
+            </div>
           </div>
-        </div>
-
-        {/* Client Access Overview */}
-        <div className="w-full">
-          <ClientAccessCard />
-        </div>
-
-        {/* Report Calendar - Full width */}
-        <div className="w-full">
-          <ReportCalendarCard />
         </div>
       </main>
 
